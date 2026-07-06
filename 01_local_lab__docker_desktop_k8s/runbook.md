@@ -682,3 +682,6 @@ Provider-Kubernetes
 ```
 
 Congratulations! You have successfully built your first Internal Developer Platform API using Crossplane.
+
+
+If you want to delete all resources created after practice you can follow this [delete_guide](./delete_resources.md)
