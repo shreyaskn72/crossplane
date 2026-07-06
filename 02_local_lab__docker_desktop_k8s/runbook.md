@@ -6,7 +6,7 @@
 
 # 1. What is Crossplane?
 
-Crossplane is an open-source control plane that allows you to create and manage infrastructure using Kubernetes APIs.
+Crossplane is an open-source control plane framework used to create and manage infrastructure using Kubernetes APIs.
 
 Instead of writing:
 
