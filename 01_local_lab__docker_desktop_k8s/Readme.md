@@ -1,4 +1,4 @@
-Since you already have **Crossplane v2.3.3 running on Docker Desktop Kubernetes**, we can build a **100% local lab** that teaches exactly the same concepts as provisioning an Azure Blob Storage account, but without needing Azure. The key idea is to replace:
+We can build a **100% local lab** that teaches exactly the same concepts as provisioning an Azure Blob Storage account, but without needing Azure. The key idea is to replace:
 
 | Azure Concept      | Local Crossplane Equivalent |
 | ------------------ | --------------------------- |
