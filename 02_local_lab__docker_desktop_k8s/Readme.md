@@ -1,4 +1,4 @@
-Perfect. Since you already have **Crossplane v2.3.3 running on Docker Desktop Kubernetes**, we can build a **100% local lab** that teaches exactly the same concepts as provisioning an Azure Blob Storage account, but without needing Azure. The key idea is to replace:
+Since you already have **Crossplane v2.3.3 running on Docker Desktop Kubernetes**, we can build a **100% local lab** that teaches exactly the same concepts as provisioning an Azure Blob Storage account, but without needing Azure. The key idea is to replace:
 
 | Azure Concept      | Local Crossplane Equivalent |
 | ------------------ | --------------------------- |
@@ -50,6 +50,98 @@ BlobStorage
 | Blob Container    |
 +-------------------+
 ```
+
+# Detailed architecture followed below:
+
+```text
+Developer
+
+kubectl apply -f myblob.yaml
+
+        |
+        v
+
+XBlobStorage
+(platform.demo)
+
+        |
+        v
+
+Composition
+(blobstorage-local)
+
+        |
+        v
+
+Function
+(patch-and-transform)
+
+        |
+        v
+
+provider-kubernetes
+
+        |
+        +---- Namespace
+        +---- ConfigMap
+        +---- Secret
+```
+
+This already teaches:
+
+* ✅ Crossplane package management
+* ✅ Providers
+* ✅ ProviderConfig
+* ✅ XRD
+* ✅ Composition
+* ✅ Pipeline mode
+* ✅ Functions
+* ✅ Patch-and-transform
+* ✅ Composite Resources
+* ✅ Managed Resources
+* ✅ Reconciliation loops
+* ✅ RBAC troubleshooting
+* ✅ Dependency modeling
+* ✅ Platform API design
+
+---
+## How this maps to a real Azure implementation
+
+Your current local lab:
+
+| Local Kubernetes    | Azure                  |
+| ------------------- | ---------------------- |
+| Namespace           | Resource Group         |
+| ConfigMap           | Storage Account        |
+| Secret              | Blob Container         |
+| XBlobStorage        | Enterprise Storage API |
+| provider-kubernetes | provider-azure         |
+
+So when you eventually get an Azure subscription, you won't change the architecture:
+
+```text
+XBlobStorage
+       |
+       v
+Composition
+       |
+       +---- ResourceGroup
+       +---- StorageAccount
+       +---- BlobContainer
+```
+
+You'll simply replace:
+
+```text
+provider-kubernetes
+```
+
+with:
+
+```text
+provider-azure
+```
+
 
 ---
 ## Step 1: Install Crossplane
