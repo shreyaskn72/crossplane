@@ -11,29 +11,82 @@ spec:
   mode: Pipeline
 
   pipeline:
-    - step: patch-and-transform
-      functionRef:
-        name: function-patch-and-transform
+  - step: patch-and-transform
 
-      input:
-        apiVersion: pt.fn.crossplane.io/v1beta1
-        kind: Resources
+    functionRef:
+      name: function-patch-and-transform
 
-        resources:
-          - name: namespace
-            base:
-              apiVersion: kubernetes.crossplane.io/v1alpha2
-              kind: Object
-              spec:
-                providerConfigRef:
-                  name: local
-                forProvider:
-                  manifest:
-                    apiVersion: v1
-                    kind: Namespace
-                    metadata:
-                      name: placeholder
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
 
-            patches:
-              - fromFieldPath: spec.storageName
-                toFieldPath: spec.forProvider.manifest.metadata.name
+      resources:
+
+      # Resource Group equivalent
+      - name: namespace
+        base:
+          apiVersion: kubernetes.crossplane.io/v1alpha2
+          kind: Object
+          spec:
+            providerConfigRef:
+              name: local
+
+            forProvider:
+              manifest:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: placeholder
+
+        patches:
+        - fromFieldPath: spec.storageName
+          toFieldPath: spec.forProvider.manifest.metadata.name
+
+      # Storage Account equivalent
+      - name: storageaccount
+        base:
+          apiVersion: kubernetes.crossplane.io/v1alpha2
+          kind: Object
+          spec:
+            providerConfigRef:
+              name: local
+
+            forProvider:
+              manifest:
+                apiVersion: v1
+                kind: ConfigMap
+                metadata:
+                  name: storage-account
+                  namespace: default
+
+                data:
+                  tier: Standard
+                  replication: LRS
+
+        patches:
+        - fromFieldPath: spec.storageName
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+      # Blob Container equivalent
+      - name: container
+        base:
+          apiVersion: kubernetes.crossplane.io/v1alpha2
+          kind: Object
+          spec:
+            providerConfigRef:
+              name: local
+
+            forProvider:
+              manifest:
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: blob-container
+                  namespace: default
+
+                stringData:
+                  container: images
+
+        patches:
+        - fromFieldPath: spec.storageName
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
