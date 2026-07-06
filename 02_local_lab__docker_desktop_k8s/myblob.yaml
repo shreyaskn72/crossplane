@@ -1,0 +1,9 @@
+apiVersion: platform.demo/v1alpha1
+kind: XBlobStorage
+
+metadata:
+  name: my-storage
+
+spec:
+  location: eastus
+  storageName: demo-storage
