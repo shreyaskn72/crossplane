@@ -14,7 +14,9 @@ Function
 XR
 ```
 
-[Module 1](./01_local_lab__docker_desktop_k8s/Readme.md)
+[Module 1](00_docs/01_module01_documents/Readme.md)
+
+[Module 1 runbook](00_docs/01_module01_documents/runbook.md)
 
 ### Module 2: Advanced Composition Techniques
 

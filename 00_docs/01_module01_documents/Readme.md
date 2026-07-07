@@ -146,4 +146,4 @@ provider-azure
 ---
 ## Runbook
 
-To continue further please refer [runbook](./runbook.md)
+To continue further please refer [runbook](runbook.md)
