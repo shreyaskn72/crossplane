@@ -3,7 +3,7 @@
 
 
 
-### Module 1 
+### Module 1 : Crossplane Fundamentals & Local Setup
 
 ```text
 Provider
@@ -16,7 +16,7 @@ XR
 
 [Module 1](./01_local_lab__docker_desktop_k8s/Readme.md)
 
-### Module 2
+### Module 2: Advanced Composition Techniques
 
 ```text
 Patching
@@ -27,7 +27,7 @@ Readiness checks
 Connection secrets
 ```
 
-### Module 3
+### Module 3 : Composition Management & Versioning
 
 ```text
 Nested compositions
@@ -35,14 +35,14 @@ Composition revisions
 Composition update policies
 ```
 
-### Module 4
+### Module 4 : Integrating with Real Cloud Providers
 
 ```text
 Real cloud providers
 (Azure/AWS/GCP)
 ```
 
-### Module 5
+### Module 5: Developer Productivity & Advanced Use Cases   
 
 ```text
 Developer APIs
