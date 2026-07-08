@@ -8,3 +8,4 @@ spec:
   location: eastus
   storageName: demo-storage
   size: medium
+  environment: dev
