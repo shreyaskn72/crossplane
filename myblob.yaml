@@ -7,3 +7,4 @@ metadata:
 spec:
   location: eastus
   storageName: demo-storage
+  size: medium

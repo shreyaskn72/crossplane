@@ -60,12 +60,24 @@ spec:
                   namespace: default
 
                 data:
-                  tier: Standard
-                  replication: LRS
+                  sku: placeholder
+                  #tier: Standard
+                  #replication: LRS
 
         patches:
         - fromFieldPath: spec.storageName
           toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+        - fromFieldPath: spec.size
+          toFieldPath: spec.forProvider.manifest.data.sku
+
+          transforms:
+            - type: map
+
+              map:
+                small: Standard_LRS
+                medium: Standard_GRS
+                large: Premium_LRS
 
       # Blob Container equivalent
       - name: container

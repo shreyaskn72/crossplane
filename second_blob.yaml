@@ -1,9 +1,0 @@
-apiVersion: platform.demo/v1alpha1
-kind: XBlobStorage
-
-metadata:
-  name: second-blob-storage
-
-spec:
-  location: eastus
-  storageName: second-demo-storage-namespace
