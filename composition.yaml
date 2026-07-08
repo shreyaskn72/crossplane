@@ -39,8 +39,22 @@ spec:
                   name: placeholder
 
         patches:
-        - fromFieldPath: spec.storageName
-          toFieldPath: spec.forProvider.manifest.metadata.name
+          - type: CombineFromComposite
+
+            combine:
+
+              variables:
+
+                - fromFieldPath: spec.storageName
+
+                - fromFieldPath: spec.environment
+
+              strategy: string
+
+              string:
+                fmt: "%s-%s"
+
+            toFieldPath: spec.forProvider.manifest.metadata.name
 
 
       # Storage Account equivalent
@@ -67,8 +81,7 @@ spec:
                   #replication: LRS
 
         patches:
-        - fromFieldPath: spec.storageName
-          toFieldPath: spec.forProvider.manifest.metadata.namespace
+
 
         - fromFieldPath: spec.size
           toFieldPath: spec.forProvider.manifest.data.sku
@@ -90,6 +103,23 @@ spec:
               map:
                 dev: development
                 prod: production
+
+        - type: CombineFromComposite
+
+          combine:
+
+            variables:
+
+              - fromFieldPath: spec.storageName
+
+              - fromFieldPath: spec.environment
+
+            strategy: string
+
+            string:
+              fmt: "%s-%s"
+
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
 
       # Blob Container equivalent
       - name: container
@@ -113,8 +143,6 @@ spec:
                   environment: placeholder
 
         patches:
-        - fromFieldPath: spec.storageName
-          toFieldPath: spec.forProvider.manifest.metadata.namespace
 
         - fromFieldPath: spec.environment
           toFieldPath: spec.forProvider.manifest.stringData.environment
@@ -125,3 +153,20 @@ spec:
               map:
                 dev: development
                 prod: production
+
+        - type: CombineFromComposite
+
+          combine:
+
+            variables:
+
+              - fromFieldPath: spec.storageName
+
+              - fromFieldPath: spec.environment
+
+            strategy: string
+
+            string:
+              fmt: "%s-%s"
+
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
