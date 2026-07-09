@@ -29,6 +29,10 @@ Readiness checks
 Connection secrets
 ```
 
+[Module 2 developer guide](00_docs/02_module02_advanced_composition_techniques/developer_guide.md)
+
+[Module_2_test_runbook](00_docs/02_module02_advanced_composition_techniques/qa_test_runbook.md)
+
 ### Module 3 : Composition Management & Versioning
 
 ```text
