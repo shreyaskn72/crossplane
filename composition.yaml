@@ -39,8 +39,23 @@ spec:
                   name: placeholder
 
         patches:
-        - fromFieldPath: spec.storageName
-          toFieldPath: spec.forProvider.manifest.metadata.name
+          - type: CombineFromComposite
+
+            combine:
+
+              variables:
+
+                - fromFieldPath: spec.storageName
+
+                - fromFieldPath: spec.environment
+
+              strategy: string
+
+              string:
+                fmt: "%s-%s"
+
+            toFieldPath: spec.forProvider.manifest.metadata.name
+
 
       # Storage Account equivalent
       - name: storageaccount
@@ -60,11 +75,50 @@ spec:
                   namespace: default
 
                 data:
-                  tier: Standard
-                  replication: LRS
+                  sku: placeholder
+                  environment: placeholder
+                  #tier: Standard
+                  #replication: LRS
 
         patches:
-        - fromFieldPath: spec.storageName
+
+
+        - fromFieldPath: spec.size
+          toFieldPath: spec.forProvider.manifest.data.sku
+
+          transforms:
+            - type: map
+
+              map:
+                small: Standard_LRS
+                medium: Standard_GRS
+                large: Premium_LRS
+
+        - fromFieldPath: spec.environment
+          toFieldPath: spec.forProvider.manifest.data.environment
+
+          transforms:
+            - type: map
+
+              map:
+                dev: development
+                prod: production
+
+        - type: CombineFromComposite
+
+          combine:
+
+            variables:
+
+              - fromFieldPath: spec.storageName
+
+              - fromFieldPath: spec.environment
+
+            strategy: string
+
+            string:
+              fmt: "%s-%s"
+
           toFieldPath: spec.forProvider.manifest.metadata.namespace
 
       # Blob Container equivalent
@@ -85,8 +139,63 @@ spec:
                   namespace: default
 
                 stringData:
-                  container: images
+                  accountName: placeholder
+                  endpoint: placeholder
+                  environment: placeholder
 
         patches:
         - fromFieldPath: spec.storageName
+          toFieldPath: spec.forProvider.manifest.stringData.accountName
+
+        - fromFieldPath: spec.environment
+          toFieldPath: spec.forProvider.manifest.stringData.environment
+
+          transforms:
+            - type: map
+
+              map:
+                dev: development
+                prod: production
+
+        - type: CombineFromComposite
+
+          combine:
+
+            variables:
+
+              - fromFieldPath: spec.storageName
+
+              - fromFieldPath: spec.environment
+
+            strategy: string
+
+            string:
+              fmt: "%s-%s"
+
           toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+        - type: CombineFromComposite
+          combine:
+              variables:
+                - fromFieldPath: spec.storageName
+                - fromFieldPath: spec.environment
+
+              strategy: string
+
+              string:
+                fmt: "%s-%s"
+
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+        - type: CombineFromComposite
+
+          combine:
+                  variables:
+                    - fromFieldPath: spec.storageName
+
+                  strategy: string
+
+                  string:
+                    fmt: "https://%s.blob.core.windows.net"
+
+          toFieldPath: spec.forProvider.manifest.stringData.endpoint

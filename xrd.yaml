@@ -31,6 +31,14 @@ spec:
                 storageName:
                   type: string
 
+                environment:
+                  type: string
+
+                size:
+                  type: string
+
               required:
                 - location
                 - storageName
+                - size
+                - environment
