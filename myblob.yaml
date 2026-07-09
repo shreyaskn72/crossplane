@@ -7,5 +7,5 @@ metadata:
 spec:
   location: eastus
   storageName: demo-storage
-  size: medium
+  size: small
   environment: dev

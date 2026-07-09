@@ -200,7 +200,7 @@ Expected
 ```yaml
 environment: development
 ```
-
+[concept 3 deep dive](./concept_3_testing.md)
 ---
 
 # Concept 4 — Combine Patches
@@ -248,9 +248,14 @@ kubectl get secret blob-container \
 
 Both resources should exist inside the generated namespace.
 
----
+[concept 4 deep dive](./concept4_testing.md)
 
-# Concept 5 — Connection Secrets
+---
+# concept 5: Readiness probe (theory only)
+
+[concept 5 theory](./concept_5_explanation.md)
+
+# Concept 6 — Connection Secrets
 
 ## Goal
 
@@ -316,7 +321,7 @@ Expected
 ```text
 development
 ```
-
+[concept 6 deep dive](./concept6_explanation.md)
 ---
 
 # Experiment with Different Inputs
