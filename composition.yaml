@@ -139,10 +139,13 @@ spec:
                   namespace: default
 
                 stringData:
-                  container: images
+                  accountName: placeholder
+                  endpoint: placeholder
                   environment: placeholder
 
         patches:
+        - fromFieldPath: spec.storageName
+          toFieldPath: spec.forProvider.manifest.stringData.accountName
 
         - fromFieldPath: spec.environment
           toFieldPath: spec.forProvider.manifest.stringData.environment
@@ -170,3 +173,29 @@ spec:
               fmt: "%s-%s"
 
           toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+        - type: CombineFromComposite
+          combine:
+              variables:
+                - fromFieldPath: spec.storageName
+                - fromFieldPath: spec.environment
+
+              strategy: string
+
+              string:
+                fmt: "%s-%s"
+
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
+
+        - type: CombineFromComposite
+
+          combine:
+                  variables:
+                    - fromFieldPath: spec.storageName
+
+                  strategy: string
+
+                  string:
+                    fmt: "https://%s.blob.core.windows.net"
+
+          toFieldPath: spec.forProvider.manifest.stringData.endpoint
